@@ -14,10 +14,9 @@ class equipment:
     # weight: int
     # properties: list
     def __str__(self):
-        print(f'index: {self.index}')
-        print(f'name: {self.name}')
-        print(f'cost: {self.cost}')
-        print(f'category: {self.category}')
+        print(f'Name: {self.name}')
+        print(f'Cost: {self.cost}')
+        print(f'Category: {self.category}')
         return '\r'
 
 @dataclass
@@ -55,12 +54,11 @@ class races:
     # language_desc: list
 
     def __str__(self):
-        print(f'index: {self.index}')
-        print(f'name: {self.name}')
-        print(f'speed: {self.speed}')
-        print(f'size: {self.size}')
-        print(f'traits: {", ".join(self.traits.keys())}')
-        print(f'subraces: {", ".join(self.subraces.keys())}')
+        print(f'Name: {self.name}')
+        print(f'Speed: {self.speed}')
+        print(f'Size: {self.size}')
+        print(f'Traits: {", ".join(self.traits.keys())}')
+        print(f'Subraces: {", ".join(self.subraces.keys())}')
         return '\r'
 
 @dataclass
@@ -69,14 +67,17 @@ class spells:
     name: str
     description: str
     range: str
-    material: str
+    level: int
     ritual: bool
     casting_time: str
-    #level: int
+    #material : str
     #damage: dict
 
     def __str__(self):
         print(f"Name: {self.name}")
+        print("Description:")
+        for x in self.description:
+            if x != '': print(f'\t- {x}')
         print(f"Range: {self.range}")
         print(f"Casting Time: {self.casting_time}")
         return '\r'
@@ -90,11 +91,10 @@ class monsters:
     alignment: str
 
     def __str__(self):
-        print(f'index: {self.index}')
-        print(f'name: {self.name}')
-        print(f'hit_points: {self.hit_points}')
-        print(f'size: {self.size}')
-        print(f'alignment: {self.alignment}')
+        print(f'Name: {self.name}')
+        print(f'Hit_points: {self.hit_points}')
+        print(f'Size: {self.size}')
+        print(f'Alignment: {self.alignment}')
         return '\r'
 
 #read html data into json
@@ -152,7 +152,7 @@ def importSpells():
         print (f'Now reading {url}')
         data = response.json()
         spell_dict[data['index']] = spells(data['index'], data['name'], data['desc'], data['range'],\
-                    data['ritual'], data['casting_time'], data['level'])
+                    data['level'],data['ritual'], data['casting_time'])
     return spell_dict
 
 #import monster data
